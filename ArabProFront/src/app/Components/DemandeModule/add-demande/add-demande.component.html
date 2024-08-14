@@ -1,0 +1,77 @@
+
+<div class="wrapper">
+    <app-side-bar></app-side-bar>
+    <div class="content-page">
+        <div class="content">
+
+            <!-- Start Content-->
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">ArabPro</a></li>
+                                    <li class="breadcrumb-item active"><a href="javascript: void(0);">Nouvelle Demande</a></li>
+                                </ol>
+                            </div>
+                            <h4 class="page-title">Nouvelle Demande </h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                               
+
+                
+
+                                <div class="tab-content">
+                                    <div class="tab-pane show active" id="input-types-preview">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <form [formGroup]="demandeForm" (ngSubmit)="onSubmit()">
+                                                    <div class="mb-3">
+                                                      <label for="typeDeDemande" class="form-label">Type De Demande</label>
+                                                      <select class="form-select" id="typeDeDemande" formControlName="typeDeDemande">
+                                                        <option value="Demande Conge">Demande Conge</option>
+                                                        <option value="Demande Formation">Demande Formation</option>
+                                                        <option value="Demande Auto-Sortie">Demande Auto-Sortie</option>
+                                                        <option value="Demande pret-avance">Demande pret-avance</option>
+                                                      </select>
+                                                    </div>
+                                                    
+                                                    <div class="mb-3">
+                                                      <label for="description" class="form-label">Description</label>
+                                                      <textarea class="form-control" id="description" rows="5" formControlName="description"></textarea>
+                                                    </div>
+                                                  
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                  </form>
+                                                  
+                                            </div> <!-- end col -->
+
+                            
+                                        </div>
+                                        <!-- end row-->
+                                    </div> <!-- end preview-->
+
+                               
+                                </div> <!-- end tab-content-->
+                            </div> <!-- end card-body -->
+                        </div> <!-- end card -->
+                    </div><!-- end col -->
+                </div><!-- end row -->
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
