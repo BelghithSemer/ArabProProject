@@ -1,0 +1,20 @@
+.badge-success {
+    background-color: #28a745; /* Bootstrap green color */
+    color: #fff; /* White text */
+    border-radius: 0.25rem; /* Rounded corners */
+    padding: 0.25em 0.4em; /* Padding */
+    font-size: 75%; /* Font size */
+    font-weight: 700; /* Font weight */
+    text-align: center; /* Center text */
+    display: inline-block; /* Inline block display */
+}
+.badge-danger {
+    background-color: #dc3545; /* Bootstrap red color */
+    color: #fff; /* White text */
+    border-radius: 0.25rem; /* Rounded corners */
+    padding: 0.25em 0.4em; /* Padding */
+    font-size: 75%; /* Font size */
+    font-weight: 700; /* Font weight */
+    text-align: center; /* Center text */
+    display: inline-block; /* Inline block display */
+}

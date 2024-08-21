@@ -98,12 +98,36 @@
                                                 </td>
                                                 <td>{{ d.dateCreation | date:'yyyy-MM-dd' }}</td>
                                                 <td>
-                                                    <h5 class="my-0"><span class="badge badge-info-lighten">{{ d.state }}</span></h5>
+                                                    <h5 class="my-0">
+                                                        <span 
+                                                            class="badge" 
+                                                            [ngClass]="{
+                                                                'badge-success': d.state === 'VALIDEE',
+                                                                'badge-danger': d.state === 'REFUSEE',
+                                                                'badge-info-lighten': d.state !== 'VALIDEE' && d.state !== 'REFUSEE'
+                                                            }">
+                                                            {{ d.state }}
+                                                        </span>
+                                                    </h5>
                                                 </td>
+                                           
                                                 <td>
-                                                    <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
-                                                    <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                                    <ng-container *ngIf="d.state === 'SOUMISE' || d.state === 'PARTIELLEMENT_VALIDEE'; else deleteButton">
+                                                        <a href="javascript:void(0);" class="action-icon" style="color: green;" (click)="Repondre(d, 'accept')"> 
+                                                            <i class="mdi mdi-check-circle-outline"></i> 
+                                                        </a>
+                                                        <a href="javascript:void(0);" class="action-icon" style="color: red;" (click)="Repondre(d, 'refuse')"> 
+                                                            <i class="mdi mdi-close-circle-outline"></i> 
+                                                        </a>
+                                                    </ng-container>
+                                                    <ng-template #deleteButton>
+                                                        <a href="javascript:void(0);" class="action-icon" (click)="Delete(d.id)">
+                                                            <i class="mdi mdi-delete"></i>
+                                                        </a>
+                                                    </ng-template>
                                                 </td>
+                                                
+
                                             </tr>
 
                                             

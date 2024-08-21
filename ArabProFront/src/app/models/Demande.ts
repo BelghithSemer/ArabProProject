@@ -13,8 +13,8 @@ export class Demande{
   dateValidationFinale!: Date;
 }
 export enum DemandState{
-    "SOUMISE",
-    "PARTIELLEMENT_VALIDEE",
-    "VALIDEE",
-    "REFUSEE"
+  SOUMISE = 'SOUMISE',
+  PARTIELLEMENT_VALIDEE = 'PARTIELLEMENT_VALIDEE',
+  VALIDEE = 'VALIDEE',
+  REFUSEE = 'REFUSEE',
 }
