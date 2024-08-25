@@ -45,14 +45,36 @@
                                                         <option value="Demande Document">Demande Document</option>
                                                       </select>
                                                     </div>
-                                                    
+                                                  
                                                     <div class="mb-3">
                                                       <label for="description" class="form-label">Description</label>
                                                       <textarea class="form-control" id="description" rows="5" formControlName="description"></textarea>
                                                     </div>
                                                   
+                                                    <!-- Conditionally displayed fields -->
+                                                    <div *ngIf="demandeForm.get('dateDebut')" class="mb-3">
+                                                      <label for="dateDebut" class="form-label">Date Debut</label>
+                                                      <input type="datetime-local" class="form-control" id="dateDebut" formControlName="dateDebut">
+                                                    </div>
+                                                  
+                                                    <div *ngIf="demandeForm.get('dateSortie')" class="mb-3">
+                                                      <label for="dateSortie" class="form-label">Date Sortie</label>
+                                                      <input type="date" class="form-control" id="dateSortie" formControlName="dateSortie">
+                                                    </div>
+                                                  
+                                                    <div *ngIf="demandeForm.get('montantDemande')" class="mb-3">
+                                                      <label for="montantDemande" class="form-label">Montant Demande</label>
+                                                      <input type="number" class="form-control" id="montantDemande" formControlName="montantDemande">
+                                                    </div>
+                                                  
+                                                    <div *ngIf="demandeForm.get('duree')" class="mb-3">
+                                                      <label for="duree" class="form-label">Durée (en minutes)</label>
+                                                      <input type="number" class="form-control" id="duree" formControlName="duree">
+                                                    </div>
+                                                  
                                                     <button type="submit" class="btn btn-primary">Submit</button>
                                                   </form>
+                                                  
                                                   
                                             </div> <!-- end col -->
 

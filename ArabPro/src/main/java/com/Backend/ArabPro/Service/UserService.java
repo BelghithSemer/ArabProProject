@@ -29,7 +29,7 @@ public class UserService implements IService<User>{
 
     @Override
     public List<User> Retrieve() {
-        return null;
+        return repo.findAll();
     }
 
     @Override

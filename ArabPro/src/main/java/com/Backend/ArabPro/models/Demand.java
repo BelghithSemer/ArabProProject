@@ -20,6 +20,15 @@ public class Demand {
     private String description;
     private DemandState state;
 
+    private Long duree;
+    private Date dateSortie;
+    private Date dateDebut;
+
+    private Long montantdemande;
+
+
+
+
     private Long idDemandeur;
     private Long idChef;
     private Long idAdmin;

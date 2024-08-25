@@ -10,7 +10,12 @@ import { SignInComponent } from './Components/Auth/sign-in/sign-in.component';
 import { SideBarComponent } from './Components/Shared/side-bar/side-bar.component';
 import { AddDemandeComponent } from './Components/DemandeModule/add-demande/add-demande.component';
 import { ListDemandeComponent } from './Components/DemandeModule/list-demande/list-demande.component';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DemandInfoDialogComponent } from './Components/DemandeModule/demand-info-dialog/demand-info-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { UsersComponent } from './Components/UserManagment/users/users.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,13 +23,19 @@ import { ListDemandeComponent } from './Components/DemandeModule/list-demande/li
     SignInComponent,
     SideBarComponent,
     AddDemandeComponent,
-    ListDemandeComponent
+    ListDemandeComponent,
+    DemandInfoDialogComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTooltipModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

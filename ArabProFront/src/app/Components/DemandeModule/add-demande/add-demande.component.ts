@@ -17,7 +17,11 @@ export class AddDemandeComponent {
   constructor(private fb: FormBuilder, private serv:DemandeService, private notifservice:NotifService) {
     this.demandeForm = this.fb.group({
       typeDeDemande: ['Demande Conge'], // Default selection
-      description: ['']
+      description: [''],
+      dateDebut: [''], // Default fields
+      dateSortie: [''], 
+      montantDemande: [''],
+      duree: ['']
     });
     this.demande = {
       id:0,
@@ -29,7 +33,11 @@ export class AddDemandeComponent {
       dateCreation: new Date(),
       dateValidationFinale: new Date(),
       dateValidationPartielle: new Date(),
-      state: DemandState.SOUMISE
+      state: DemandState.SOUMISE,
+      duree:0,
+      dateDebut:new Date,
+      dateSortie:new Date,
+      montantdemande: 0
     }
     this.notif = {
       id:0,
@@ -40,7 +48,12 @@ export class AddDemandeComponent {
   }
 
   ngOnInit(): void {
-    
+    this.demandeForm.get('typeDeDemande')?.valueChanges.subscribe(selectedType => {
+      this.updateFormFields(selectedType);
+    });
+  
+    // Initialize form based on default type
+    this.updateFormFields(this.demandeForm.get('typeDeDemande')?.value);
   }
 
   onSubmit(): void {
@@ -57,5 +70,23 @@ export class AddDemandeComponent {
       });
     })
 
+  }
+
+  updateFormFields(selectedType: string): void {
+    // Reset form fields that are conditionally added
+    this.demandeForm.removeControl('dateDebut');
+    this.demandeForm.removeControl('dateSortie');
+    this.demandeForm.removeControl('montantDemande');
+    this.demandeForm.removeControl('duree');
+  
+    if (selectedType === 'Demande Conge') {
+      this.demandeForm.addControl('dateDebut', this.fb.control(''));
+      this.demandeForm.addControl('dateSortie', this.fb.control(''));
+    } else if (selectedType === 'Demande pret-avance') {
+      this.demandeForm.addControl('montantDemande', this.fb.control(''));
+    } else if (selectedType === 'Demande Auto-Sortie') {
+      this.demandeForm.addControl('dateDebut', this.fb.control('')); // Date and Time
+      this.demandeForm.addControl('duree', this.fb.control('')); // Duration in minutes
+    }
   }
 }

@@ -119,11 +119,19 @@
                                                         <a href="javascript:void(0);" class="action-icon" style="color: red;" (click)="Repondre(d, 'refuse')"> 
                                                             <i class="mdi mdi-close-circle-outline"></i> 
                                                         </a>
+                                                        <a href="javascript:void(0);" class="action-icon" (click)="openDialog(d)">
+                                                            <i class="mdi mdi-information"></i>
+                                                          </a>
                                                     </ng-container>
                                                     <ng-template #deleteButton>
                                                         <a href="javascript:void(0);" class="action-icon" (click)="Delete(d.id)">
                                                             <i class="mdi mdi-delete"></i>
                                                         </a>
+                                                        <a href="javascript:void(0);" class="action-icon" (click)="openDialog(d)">
+                                                            <i class="mdi mdi-information"></i>
+                                                          </a>
+                                                        
+                                                        
                                                     </ng-template>
                                                 </td>
                                                 
@@ -141,6 +149,64 @@
                 </div> <!-- end row -->
             </div> <!-- container -->
         </div> <!-- content -->
+
+
+
+
+        <!--modal structure start -->
+        <!-- Modal Structure -->
+        <div class="modal fade" id="demandInfoModal" tabindex="-1" aria-labelledby="demandInfoModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                  <h5 class="modal-title" id="demandInfoModalLabel">Demand Information</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <!-- User Info -->
+                  <div class="d-flex align-items-center mb-3">
+                    <img [src]="getUserImage(selectedDemand?.idDemandeur)" class="rounded-circle avatar-sm" alt="User Image">
+                    <h5 class="ms-2">{{ getUserName(selectedDemand?.idDemandeur) }}</h5>
+                  </div>
+          
+                  <!-- Common Fields -->
+                  <p><strong>Type:</strong> {{ selectedDemand?.typeDemande }}</p>
+                  <p><strong>Description:</strong> {{ selectedDemand?.description }}</p>
+                  <p><strong>Date:</strong> {{ selectedDemand?.dateCreation | date:'yyyy-MM-dd' }}</p>
+          
+                  <!-- Conditional Fields -->
+                  <ng-container [ngSwitch]="selectedDemand?.typeDemande">
+                    <!-- Auto Sortie -->
+                    <div *ngSwitchCase="'Demande Auto-Sortie'">
+                      <p><strong>Date Debut:</strong> {{ selectedDemand?.dateDebut | date:'yyyy-MM-dd HH:mm' }}</p>
+                      <p><strong>Duree:</strong> {{ selectedDemand?.duree }} minutes</p>
+                    </div>
+          
+                    <!-- Conge -->
+                    <div *ngSwitchCase="'Demande Conge'">
+                      <p><strong>Date Debut:</strong> {{ selectedDemand?.dateDebut | date:'yyyy-MM-dd' }}</p>
+                      <p><strong>Date Sortie:</strong> {{ selectedDemand?.dateSortie | date:'yyyy-MM-dd' }}</p>
+                    </div>
+          
+                    <!-- Pret Avance -->
+                    <div *ngSwitchCase="'Demande pret-avance'">
+                      <p><strong>Montant Demande:</strong> {{ selectedDemand?.montantdemande | currency }}</p>
+                    </div>
+                  </ng-container>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+  
+         <!--end modal -->
+
+
+
+
 
         <!-- Footer Start -->
         <footer class="footer">

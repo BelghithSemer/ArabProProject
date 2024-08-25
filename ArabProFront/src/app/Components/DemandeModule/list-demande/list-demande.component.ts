@@ -1,23 +1,33 @@
 import { Component } from '@angular/core';
 import { Demande, DemandState } from 'src/app/models/Demande';
 import { DemandeService } from 'src/app/Services/demande.service';
-
+import { DemandInfoDialogComponent } from '../demand-info-dialog/demand-info-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { UserService } from 'src/app/Services/user.service';
+import { User } from 'src/app/models/User';
+declare var bootstrap: any;
 @Component({
   selector: 'app-list-demande',
   templateUrl: './list-demande.component.html',
   styleUrls: ['./list-demande.component.css']
 })
 export class ListDemandeComponent {
+
 listdemande : Demande[] = [];
 DemandState = DemandState;
-constructor(private serv:DemandeService){}
+user!: User;
 
+constructor(private serv:DemandeService,public dialog: MatDialog, private userServ: UserService){}
+selectedDemand: any = null;
 ngOnInit(){
   this.serv.getAll().subscribe((data)=>{
     this.listdemande = data;
     console.log(this.listdemande)
     console.log('First Demand State:', this.listdemande[0]?.state);
 
+  });
+  this.userServ.GetUser(8).subscribe((data)=>{
+    this.user = data;
   })
 
 }
@@ -71,4 +81,30 @@ Delete(id:number){
 }
 
 
+getUserImage(userId: number): string {
+  // Implement logic to get the user image based on idDemandeur
+  // For example, you might query an API or use a local array of user data
+  return 'path/to/default-image.jpg'; // Update this with actual logic
+}
+
+// Sample method to get the user's name by id
+getUserName(userId: number): string {
+ 
+ if(this.user != null ){
+  return this.user.username;
+ }
+ return 'No Name Found';
+}
+
+openDialog(demand: any): void {
+  this.selectedDemand = demand;
+  const modal = new bootstrap.Modal(document.getElementById('demandInfoModal'));
+  this.userServ.GetUser(demand.idDemandeur).subscribe((data)=>{
+    this.user = data;
+    console.log('user selected : ',this.user);
+    
+   });
+  modal.show();
+  
+}
 }

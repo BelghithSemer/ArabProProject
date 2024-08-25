@@ -8,6 +8,12 @@ export class Demande{
   idChef!: number;
   idAdmin!: number;
 
+  duree!:number;
+  dateSortie!:Date;
+  dateDebut!:Date;
+
+  montantdemande!:number;
+
   dateCreation!: Date;
   dateValidationPartielle!: Date;
   dateValidationFinale!: Date;

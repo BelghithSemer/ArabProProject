@@ -41,6 +41,7 @@ export class SignInComponent {
         sessionStorage.setItem('username', data.username);
         sessionStorage.setItem('email', data.email);
         sessionStorage.setItem('roles', JSON.stringify(data.roles));
+        sessionStorage.setItem('id', data.id.toString());
       })
 
     }

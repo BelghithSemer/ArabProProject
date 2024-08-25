@@ -4,6 +4,7 @@ import { SignUpComponent } from './Components/Auth/sign-up/sign-up.component';
 import { SignInComponent } from './Components/Auth/sign-in/sign-in.component';
 import { AddDemandeComponent } from './Components/DemandeModule/add-demande/add-demande.component';
 import { ListDemandeComponent } from './Components/DemandeModule/list-demande/list-demande.component';
+import { UsersComponent } from './Components/UserManagment/users/users.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/register', pathMatch: 'full' },
@@ -11,7 +12,7 @@ const routes: Routes = [
   {path:'login', component:SignInComponent},
   {path:'add-request', component:AddDemandeComponent},
   {path:'requests', component:ListDemandeComponent},
-
+  {path: 'users', component:UsersComponent}
 
 ];
 
