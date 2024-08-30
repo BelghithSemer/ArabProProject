@@ -67,6 +67,7 @@ export class AddDemandeComponent {
       this.notif.request = data;
       this.notifservice.SendRequestNotif(this.notif).subscribe((data)=> {
         console.log(data);
+        alert('Request Sent ! ');
       });
     })
 

@@ -1,0 +1,97 @@
+<div class="wrapper">
+
+        
+   <app-side-bar></app-side-bar>
+
+    <div class="content-page">
+        <div class="content">
+
+            <!-- Start Content-->
+            <div class="container-fluid">
+
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Projects</a></li>
+                                    <li class="breadcrumb-item active">Create Project</li>
+                                </ol>
+                            </div>
+                            <h4 class="page-title">Create Project</h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+                                      <div class="col-xl-6">
+                                        <div class="mb-3">
+                                          <label for="libelle" class="form-label">Project Name</label>
+                                          <input type="text" id="libelle" class="form-control" formControlName="libelle" placeholder="Enter project name">
+                                        </div>
+                                  
+                                        <div class="mb-3">
+                                          <label for="description" class="form-label">Description</label>
+                                          <textarea class="form-control" id="description" formControlName="description" rows="5" placeholder="Enter description"></textarea>
+                                        </div>
+                                  
+                                  
+                                        <div class="mb-3">
+                                          <label for="manager" class="form-label">Manager</label>
+                                          <select class="form-control" id="manager" formControlName="manager">
+                                            <option *ngFor="let user of users" [ngValue]="user">{{ user.username }}</option>
+                                          </select>
+                                        </div>
+                                  
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                      </div>
+                                    </form>
+                                  </div>
+                                  
+                                <!-- end row -->
+
+                            </div> <!-- end card-body -->
+                        </div> <!-- end card-->
+                    </div> <!-- end col-->
+                </div>
+                <!-- end row-->
+
+            </div> <!-- container -->
+
+        </div> <!-- content -->
+
+        <!-- Footer Start -->
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <script>document.write(new Date().getFullYear())</script> © Hyper - Coderthemes.com
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-md-end footer-links d-none d-md-block">
+                            <a href="javascript: void(0);">About</a>
+                            <a href="javascript: void(0);">Support</a>
+                            <a href="javascript: void(0);">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- end Footer -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+</div>

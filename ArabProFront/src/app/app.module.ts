@@ -16,6 +16,9 @@ import { DemandInfoDialogComponent } from './Components/DemandeModule/demand-inf
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { UsersComponent } from './Components/UserManagment/users/users.component';
+import { ProjectsComponent } from './Components/ProjectManagement/projects/projects.component';
+import { AddProjectComponent } from './Components/ProjectManagement/add-project/add-project.component';
+import { TasksComponent } from './Components/ProjectManagement/tasks/tasks.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +28,10 @@ import { UsersComponent } from './Components/UserManagment/users/users.component
     AddDemandeComponent,
     ListDemandeComponent,
     DemandInfoDialogComponent,
-    UsersComponent
+    UsersComponent,
+    ProjectsComponent,
+    AddProjectComponent,
+    TasksComponent
   ],
   imports: [
     BrowserModule,
