@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Project } from '../models/Project';
+import { Task } from '../models/Task';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +21,11 @@ export class ProjectService {
 
   GetProject(id:number){
     return this.http.get<Project>('http://localhost:8080/project/show/'+id);
+  }
+  AddTask(task : Task){
+    return this.http.post<Task>('http://localhost:8080/tasks/add',task);
+  }
+  GetAllTasks(){
+    return this.http.get<Task[]>('http://localhost:8080/tasks/show');
   }
 }

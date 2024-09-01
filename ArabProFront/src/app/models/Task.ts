@@ -4,8 +4,8 @@ import { User } from "./User";
 export class Task{
     id!:number;
     priority!:string;
-    Libelle!:string;
-    Description!:string;
+    libelle!:string;
+    description!:string;
     status!:TaskStatus;
 
 
@@ -14,5 +14,5 @@ export class Task{
     project: Project | undefined;
 }
 export enum TaskStatus{
-    TODO, IN_PROGRESS, REVIEW ,DONE
+    TODO ='TODO', IN_PROGRESS = 'IN_PROGRESS', REVIEW = 'REVIEW' ,DONE = 'DONE'
 }

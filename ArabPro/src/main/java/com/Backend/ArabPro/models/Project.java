@@ -18,7 +18,7 @@ public class Project {
     private Long id;
     private String description;
 
-    private String Libelle;
+    private String libelle;
 
     private String etat;
 
