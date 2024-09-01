@@ -17,11 +17,16 @@ public class Task {
     private String priority;
     private String Libelle;
     private String Description;
+
+    @Enumerated(EnumType.STRING)
     private TaskStatus status;
 
 
     @ManyToOne
     private User employee;
+
+    @ManyToOne
+    private Project project;
 
 
 

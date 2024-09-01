@@ -1,0 +1,32 @@
+/* Define different styles for each type of demand */
+.conge-field {
+    background-color: #e3f2fd; /* Light blue for Conge */
+    color: #0d47a1;
+  }
+  
+  .pret-avance-field {
+    background-color: #fff3e0; /* Light orange for Pret-Avance */
+    color: #e65100;
+  }
+  
+  .auto-sortie-field {
+    background-color: #fce4ec; /* Light pink for Auto-Sortie */
+    color: #d81b60;
+  }
+  
+  /* Define button colors */
+  .conge-button {
+    background-color: #0d47a1;
+    color: white;
+  }
+  
+  .pret-avance-button {
+    background-color: #e65100;
+    color: white;
+  }
+  
+  .auto-sortie-button {
+    background-color: #d81b60;
+    color: white;
+  }
+  

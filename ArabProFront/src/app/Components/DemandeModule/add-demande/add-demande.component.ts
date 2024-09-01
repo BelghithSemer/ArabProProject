@@ -14,6 +14,8 @@ export class AddDemandeComponent {
   demandeForm: FormGroup;
   demande : Demande;
   notif : Notif;
+  currentTypeClass: string = 'conge-field'; // Default to Conge
+  currentButtonClass: string = 'conge-button'; // Default to Conge button
   constructor(private fb: FormBuilder, private serv:DemandeService, private notifservice:NotifService) {
     this.demandeForm = this.fb.group({
       typeDeDemande: ['Demande Conge'], // Default selection
@@ -50,10 +52,12 @@ export class AddDemandeComponent {
   ngOnInit(): void {
     this.demandeForm.get('typeDeDemande')?.valueChanges.subscribe(selectedType => {
       this.updateFormFields(selectedType);
+      this.updateFieldStyles(selectedType);
     });
-  
+
     // Initialize form based on default type
     this.updateFormFields(this.demandeForm.get('typeDeDemande')?.value);
+    this.updateFieldStyles(this.demandeForm.get('typeDeDemande')?.value);
   }
 
   onSubmit(): void {
@@ -88,6 +92,27 @@ export class AddDemandeComponent {
     } else if (selectedType === 'Demande Auto-Sortie') {
       this.demandeForm.addControl('dateDebut', this.fb.control('')); // Date and Time
       this.demandeForm.addControl('duree', this.fb.control('')); // Duration in minutes
+    }
+  }
+
+  updateFieldStyles(selectedType: string): void {
+    switch (selectedType) {
+      case 'Demande Conge':
+        this.currentTypeClass = 'conge-field';
+        this.currentButtonClass = 'conge-button';
+        break;
+      case 'Demande pret-avance':
+        this.currentTypeClass = 'pret-avance-field';
+        this.currentButtonClass = 'pret-avance-button';
+        break;
+      case 'Demande Auto-Sortie':
+        this.currentTypeClass = 'auto-sortie-field';
+        this.currentButtonClass = 'auto-sortie-button';
+        break;
+      default:
+        this.currentTypeClass = '';
+        this.currentButtonClass = '';
+        break;
     }
   }
 }
