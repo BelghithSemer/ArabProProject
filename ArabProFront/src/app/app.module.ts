@@ -22,6 +22,7 @@ import { TasksComponent } from './Components/ProjectManagement/tasks/tasks.compo
 import { UpdateProjectComponent } from './Components/ProjectManagement/update-project/update-project.component';
 import { ProfileComponent } from './Components/Auth/profile/profile.component';
 import { DashboardComponent } from './Components/Auth/dashboard/dashboard.component';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +48,8 @@ import { DashboardComponent } from './Components/Auth/dashboard/dashboard.compon
     MatTooltipModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    CanvasJSAngularChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
