@@ -7,6 +7,6 @@ export class Project{
     libelle!:string;
 
     etat!:string;
-
+    date!:Date;
     manager:User |undefined;
 }

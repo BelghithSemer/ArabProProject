@@ -19,7 +19,7 @@ public class UserService implements IService<User>{
 
     @Override
     public User Update(User user) {
-        return null;
+        return repo.save(user);
     }
 
     @Override

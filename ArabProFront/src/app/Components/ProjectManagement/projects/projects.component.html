@@ -25,7 +25,7 @@
 
                 <div class="row mb-2">
                     <div class="col-sm-4">
-                        <a class="btn btn-danger rounded-pill mb-3" (click)="AddProject()"><i class="mdi mdi-plus"></i> Créer un Projet</a>
+                        <a class="btn btn-danger rounded-pill mb-3" (click)="AddProject()" *ngIf="isAdmin()"><i class="mdi mdi-plus"></i> Créer un Projet</a>
                     </div>
                     <div class="col-sm-8">
                         <div class="text-sm-end">
@@ -58,13 +58,15 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <!-- item-->
-                                        <a href="javascript:void(0);" class="dropdown-item"><i class="mdi mdi-pencil me-1"></i>Modifier</a>
+                                        <a [routerLink]="['/update-project', p.id]" class="dropdown-item"  *ngIf="isAdmin()">
+                                            <i class="mdi mdi-pencil me-1"></i> Modifier
+                                          </a>
+                                          
                                         <!-- item-->
                                         <a href="javascript:void(0);" class="dropdown-item"><i class="mdi mdi-delete me-1"></i>Supprimer</a>
                                         <!-- item-->
                                         <a [routerLink]="['/tasks', p.id]" href="javascript:void(0);" class="dropdown-item"><i class="mdi mdi-email-outline me-1"></i>Tâches</a>
-                                        <!-- item-->
-                                        <a href="javascript:void(0);" class="dropdown-item"><i class="mdi mdi-exit-to-app me-1"></i>Quitter</a>
+                                        
                                     </div>
                                 </div>
                                 <!-- project title-->

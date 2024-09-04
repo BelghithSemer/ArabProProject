@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoginResponse } from 'src/app/models/loginResponse';
 import { Notif } from 'src/app/models/Notif';
 import { NotifService } from 'src/app/Services/notif.service';
@@ -12,7 +13,7 @@ export class SideBarComponent {
  
   notifs : Notif[] = [];
   user : LoginResponse;
-  constructor(private serv:NotifService){
+  constructor(private serv:NotifService, private router: Router){
     this.user = {
       accessToken: sessionStorage.getItem('accessToken') || '',
       username: sessionStorage.getItem('username') || '',
@@ -29,6 +30,24 @@ export class SideBarComponent {
     this.notifs=data;
   })
  }
+
+ LogOut() {
+  // Clear all session storage
+  sessionStorage.clear();
+
+  // Navigate to the login page
+  this.router.navigate(['/login']);
+}
+
+
+ isAdminOrChef(): boolean {
+  return this.user.roles.includes('ROLE_ADMIN') || this.user.roles.includes('ROLE_CHEF');
+}
+
+// Check if the user has 'ROLE_EMPLOYEE'
+isEmployee(): boolean {
+  return this.user.roles.includes('ROLE_EMPLOYEE');
+}
 
 
 }

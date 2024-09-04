@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @Getter
 @Setter
@@ -21,6 +23,8 @@ public class Project {
     private String libelle;
 
     private String etat;
+
+    private Date date;
 
     @ManyToOne
     @JoinColumn(name = "manager_id", referencedColumnName = "id")

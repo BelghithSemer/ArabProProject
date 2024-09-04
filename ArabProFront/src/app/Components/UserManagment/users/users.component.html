@@ -90,48 +90,30 @@
                                                     07/07/2018
                                                 </td>
                                                 <td>
+                                                    <span *ngIf="u.blocked; else activeBadge" class="badge badge-danger-lighten">Blocked</span>
+                                                    <ng-template #activeBadge>
                                                     <span class="badge badge-success-lighten">Active</span>
+                                                    </ng-template>
+                                                    
+                                                      
                                                 </td>
 
                                                 <td>
                                                     <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
                                                     <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                                    
+                                                    <a href="javascript:void(0);" class="action-icon" *ngIf="!u.blocked || u.blocked === null">
+                                                        <i class="mdi mdi-block-helper" style="font-size: 18px; color: red;" (click)="block('block', u)"></i>
+                                                      </a>
+                                                      <a href="javascript:void(0);" class="action-icon" *ngIf="u.blocked">
+                                                        <i class="mdi mdi-checkbox-marked-circle-outline" style="font-size: 18px; color: green;" (click)="block('unblock', u)"></i>
+                                                      </a>
+                                                      
                                                 </td>
                                             </tr>
 
                                             
-                                            <tr>
-                                                <td>
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="customCheck13">
-                                                        <label class="form-check-label" for="customCheck13">&nbsp;</label>
-                                                    </div>
-                                                </td>
-                                                <td class="table-user">
-                                                    <img src="assets/images/users/avatar-2.jpg" alt="table-user" class="me-2 rounded-circle">
-                                                    <a href="javascript:void(0);" class="text-body fw-semibold">Rory Seekamp</a>
-                                                </td>
-                                                <td>
-                                                    078 5054 8877
-                                                </td>
-                                                <td>
-                                                    roryamp.dayrep.com
-                                                </td>
-                                                <td>
-                                                    United States
-                                                </td>
-                                                <td>
-                                                    03/24/2018
-                                                </td>
-                                                <td>
-                                                    <span class="badge badge-danger-lighten">Blocked</span>
-                                                </td>
-
-                                                <td>
-                                                    <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
-                                                    <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
-                                                </td>
-                                            </tr>
+                                            
                                         </tbody>
                                     </table>
                                 </div>

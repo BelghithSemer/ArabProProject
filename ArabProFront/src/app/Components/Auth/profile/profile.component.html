@@ -1,0 +1,260 @@
+<div class="wrapper">
+
+        
+<app-side-bar></app-side-bar>
+
+    <div class="content-page">
+        <div class="content">
+
+            <!-- Start Content-->
+            <div class="container-fluid">
+
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">ArabPro</a></li>
+                                    <li class="breadcrumb-item active">Profile</li>
+                                </ol>
+                            </div>
+                            <h4 class="page-title">Profile</h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title -->
+
+                <div class="row">
+                    <div class="col-xl-4 col-lg-5">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <img src="assets/images/users/avatar-1.jpg" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image">
+
+                                <h4 class="mb-0 mt-2">{{ user.username }}</h4>
+
+                                <button type="button" class="btn btn-success btn-sm mb-2">Follow</button>
+                                <button type="button" class="btn btn-danger btn-sm mb-2">Message</button>
+
+                                <div class="text-start mt-3">
+                                    <!--<h4 class="font-13 text-uppercase">About Me :</h4>
+                                    <p class="text-muted font-13 mb-3">
+                                        Hi I'm Johnathn Deo,has been the industry's standard dummy text ever since the
+                                        1500s, when an unknown printer took a galley of type.
+                                    </p>-->
+                                    <p class="text-muted mb-2 font-13"><strong>Full Name :</strong> <span class="ms-2">{{ user.nom  }} {{ user.prenom }}</span></p>
+
+                                    <p class="text-muted mb-2 font-13"><strong>Mobile :</strong><span class="ms-2">{{ user.tel }}</span></p>
+
+                                    <p class="text-muted mb-2 font-13"><strong>Email :</strong> <span class="ms-2 ">{{ user.email }}</span></p>
+
+                                    <p class="text-muted mb-1 font-13"><strong>Location :</strong> <span class="ms-2">{{ user.lieuNaissance }}</span></p>
+                                </div>
+
+                                <ul class="social-list list-inline mt-3 mb-0">
+                                    <li class="list-inline-item">
+                                        <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i class="mdi mdi-facebook"></i></a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="javascript: void(0);" class="social-list-item border-danger text-danger"><i class="mdi mdi-google"></i></a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="javascript: void(0);" class="social-list-item border-info text-info"><i class="mdi mdi-twitter"></i></a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i class="mdi mdi-github"></i></a>
+                                    </li>
+                                </ul>
+                            </div> <!-- end card-body -->
+                        </div> <!-- end card -->
+
+                        <!-- Messages-->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h4 class="header-title">Messages</h4>
+                                    <div class="dropdown">
+                                        <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Settings</a>
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="inbox-widget">
+                                    <div class="inbox-item">
+                                        <div class="inbox-item-img"><img src="assets/images/users/avatar-2.jpg" class="rounded-circle" alt=""></div>
+                                        <p class="inbox-item-author">Tomaslau</p>
+                                        <p class="inbox-item-text">I've finished it! See you so...</p>
+                                        <p class="inbox-item-date">
+                                            <a href="#" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                        </p>
+                                    </div>
+                                    <div class="inbox-item">
+                                        <div class="inbox-item-img"><img src="assets/images/users/avatar-3.jpg" class="rounded-circle" alt=""></div>
+                                        <p class="inbox-item-author">Stillnotdavid</p>
+                                        <p class="inbox-item-text">This theme is awesome!</p>
+                                        <p class="inbox-item-date">
+                                            <a href="#" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                        </p>
+                                    </div>
+                                    <div class="inbox-item">
+                                        <div class="inbox-item-img"><img src="assets/images/users/avatar-4.jpg" class="rounded-circle" alt=""></div>
+                                        <p class="inbox-item-author">Kurafire</p>
+                                        <p class="inbox-item-text">Nice to meet you</p>
+                                        <p class="inbox-item-date">
+                                            <a href="#" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                        </p>
+                                    </div>
+
+                                    <div class="inbox-item">
+                                        <div class="inbox-item-img"><img src="assets/images/users/avatar-5.jpg" class="rounded-circle" alt=""></div>
+                                        <p class="inbox-item-author">Shahedk</p>
+                                        <p class="inbox-item-text">Hey! there I'm available...</p>
+                                        <p class="inbox-item-date">
+                                            <a href="#" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                        </p>
+                                    </div>
+                                    <div class="inbox-item">
+                                        <div class="inbox-item-img"><img src="assets/images/users/avatar-6.jpg" class="rounded-circle" alt=""></div>
+                                        <p class="inbox-item-author">Adhamdannaway</p>
+                                        <p class="inbox-item-text">This theme is awesome!</p>
+                                        <p class="inbox-item-date">
+                                            <a href="#" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                        </p>
+                                    </div>
+                                </div> <!-- end inbox-widget -->
+                            </div> <!-- end card-body-->
+                        </div> <!-- end card-->
+
+                    </div> <!-- end col-->
+
+                    <div class="col-xl-8 col-lg-7">
+                        <div class="card">
+                            <div class="card-body">
+                                <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+                                    
+                                    <li class="nav-item">
+                                        <a href="#settings" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
+                                            Settings
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    
+
+                                    <div class="tab-pane show active" id="settings">
+                                        <form [formGroup]="personalInfoForm" (ngSubmit)="onSubmit()">
+                                            <h5 class="mb-4 text-uppercase"><i class="mdi mdi-account-circle me-1"></i> Infos Personnelles</h5>
+                                            <div class="row">
+                                              <div class="col-md-6">
+                                                <div class="mb-3">
+                                                  <label for="nom" class="form-label">Nom</label>
+                                                  <input type="text" class="form-control" id="nom" formControlName="nom" placeholder="Entrez votre nom">
+                                                </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <div class="mb-3">
+                                                  <label for="prenom" class="form-label">Prénom</label>
+                                                  <input type="text" class="form-control" id="prenom" formControlName="prenom" placeholder="Entrez votre prénom">
+                                                </div>
+                                              </div>
+                                            </div>
+                                          
+                                            <div class="row">
+                                              <div class="col-md-6">
+                                                <div class="mb-3">
+                                                  <label for="tel" class="form-label">Téléphone</label>
+                                                  <input type="text" class="form-control" id="tel" formControlName="tel" placeholder="Entrez votre numéro de téléphone">
+                                                </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <div class="mb-3">
+                                                  <label for="poste" class="form-label">Poste</label>
+                                                  <input type="text" class="form-control" id="poste" formControlName="poste" placeholder="Entrez votre poste">
+                                                </div>
+                                              </div>
+                                            </div>
+                                          
+                                            <div class="row">
+                                              <div class="col-md-6">
+                                                <div class="mb-3">
+                                                  <label for="sexe" class="form-label">Sexe</label>
+                                                  <select class="form-select" id="sexe" formControlName="sexe">
+                                                    <option value="">Sélectionnez votre sexe</option>
+                                                    <option value="M">Masculin</option>
+                                                    <option value="F">Féminin</option>
+                                                  </select>
+                                                </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <div class="mb-3">
+                                                  <label for="dateNaissance" class="form-label">Date de Naissance</label>
+                                                  <input type="date" class="form-control" id="dateNaissance" formControlName="dateNaissance">
+                                                </div>
+                                              </div>
+                                            </div>
+                                          
+                                            <div class="mb-3">
+                                              <label for="lieuNaissance" class="form-label">Lieu de Naissance</label>
+                                              <input type="text" class="form-control" id="lieuNaissance" formControlName="lieuNaissance" placeholder="Entrez votre lieu de naissance">
+                                            </div>
+                                          
+                                            <div class="mb-3">
+                                              <label for="experience" class="form-label">Expérience</label>
+                                              <textarea class="form-control" id="experience" formControlName="experience" rows="4" placeholder="Décrivez votre expérience"></textarea>
+                                            </div>
+                                          
+                                            <div class="text-end">
+                                              <button type="submit" class="btn btn-success mt-2" [disabled]="!personalInfoForm.valid"><i class="mdi mdi-content-save"></i> Enregistrer</button>
+                                            </div>
+                                          </form>
+                                          
+                                          
+                                    </div>
+                                    <!-- end settings content-->
+
+                                </div> <!-- end tab-content -->
+                            </div> <!-- end card body -->
+                        </div> <!-- end card -->
+                    </div> <!-- end col -->
+                </div>
+                <!-- end row-->
+
+            </div>
+            <!-- container -->
+
+        </div>
+        <!-- content -->
+
+        <!-- Footer Start -->
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <script>document.write(new Date().getFullYear())</script> © Hyper - Coderthemes.com
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-md-end footer-links d-none d-md-block">
+                            <a href="javascript: void(0);">About</a>
+                            <a href="javascript: void(0);">Support</a>
+                            <a href="javascript: void(0);">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- end Footer -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+</div>

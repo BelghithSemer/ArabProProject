@@ -28,4 +28,11 @@ export class ProjectService {
   GetAllTasks(){
     return this.http.get<Task[]>('http://localhost:8080/tasks/show');
   }
+  updateTask(task: Task){
+    return this.http.put<Task>('http://localhost:8080/tasks/update',task);
+  }
+
+  updateProject(project: Project){
+    return this.http.put<Project>('http://localhost:8080/project/update',project);
+  }
 }

@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @Entity
@@ -18,7 +20,8 @@ public class Task {
     private String priority;
     private String libelle;
     private String description;
-
+    private Date date;
+    
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
 

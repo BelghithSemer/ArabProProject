@@ -19,6 +19,9 @@ import { UsersComponent } from './Components/UserManagment/users/users.component
 import { ProjectsComponent } from './Components/ProjectManagement/projects/projects.component';
 import { AddProjectComponent } from './Components/ProjectManagement/add-project/add-project.component';
 import { TasksComponent } from './Components/ProjectManagement/tasks/tasks.component';
+import { UpdateProjectComponent } from './Components/ProjectManagement/update-project/update-project.component';
+import { ProfileComponent } from './Components/Auth/profile/profile.component';
+import { DashboardComponent } from './Components/Auth/dashboard/dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +34,10 @@ import { TasksComponent } from './Components/ProjectManagement/tasks/tasks.compo
     UsersComponent,
     ProjectsComponent,
     AddProjectComponent,
-    TasksComponent
+    TasksComponent,
+    UpdateProjectComponent,
+    ProfileComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

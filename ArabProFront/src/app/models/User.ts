@@ -19,7 +19,8 @@ export interface Role {
     lieuNaissance!: string;
     experience!: string;
     dateEmbauche!: string; // Use ISO 8601 format for dates (e.g., "YYYY-MM-DD")
-    soldeConge!: string;
+    soldeCongé!: string;
     idDep!: number;
+    blocked!: boolean;
   }
   

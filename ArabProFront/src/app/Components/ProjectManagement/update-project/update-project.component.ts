@@ -1,37 +1,25 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Route, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from 'src/app/models/Project';
 import { User } from 'src/app/models/User';
 import { ProjectService } from 'src/app/Services/project.service';
 import { UserService } from 'src/app/Services/user.service';
 
 @Component({
-  selector: 'app-add-project',
-  templateUrl: './add-project.component.html',
-  styleUrls: ['./add-project.component.css']
+  selector: 'app-update-project',
+  templateUrl: './update-project.component.html',
+  styleUrls: ['./update-project.component.css']
 })
-export class AddProjectComponent {
-  projectForm!: FormGroup;
+export class UpdateProjectComponent {
+
+
+  projectForm: FormGroup;
   users: User[] = [];
-  project : Project;
-  constructor(private fb: FormBuilder, private ps: ProjectService, private us:UserService, private router:Router) {
-    this.project = {
-      id : 0,
-      etat: 'OnGoing',
-      description :'nothing',
-      manager : undefined,
-      libelle : '',
-      date: new Date()
-    }
-  }
+  projectId!: number;
+  project: Project;
+  constructor(private fb:FormBuilder, private us:UserService, private route: ActivatedRoute,private ps: ProjectService, private router: Router){
 
-  ngOnInit() {
-    this.initForm();
-    this.loadUsers();
-  }
-
-  initForm() {
     this.projectForm = this.fb.group({
       libelle: ['', Validators.required],
       description: ['', Validators.required],
@@ -39,9 +27,17 @@ export class AddProjectComponent {
       date:['', Validators.required],
       
     });
+    this.project = {
+      id : 0,
+      etat: 'OnGoing',
+      description :'nothing',
+      manager : undefined,
+      libelle : '',
+      date : new Date()
+    }
   }
 
-  loadUsers() {
+  ngOnInit(){
     this.us.GetUsers().subscribe((data) => {
       // Filter users to only keep those with the 'ROLE_CHEF' role
       this.users = data;
@@ -50,10 +46,24 @@ export class AddProjectComponent {
         user.roles.some(role => role.name === 'ROLE_CHEF')
       );
     });
+    this.route.paramMap.subscribe(params => {
+      this.projectId = +params.get('id')!; 
+      console.log(this.projectId);
+      this.ps.GetProject(this.projectId).subscribe((data)=>{
+        this.project = data;
+        console.log(this.project);
+        //this.projectForm.patchValue(this.project);
+        this.projectForm.patchValue({
+          libelle: this.project.libelle,
+          description: this.project.description,
+          manager: this.project.manager, // Assign the found manager object
+          date: this.project.date,
+        });
+      })
+    });
   }
-  
 
-  onSubmit() {
+  onSubmit(){
     if (this.projectForm.valid) {
       this.project.description = this.projectForm.value.description;
       this.project.libelle = this.projectForm.value.libelle;
@@ -61,13 +71,12 @@ export class AddProjectComponent {
       this.project.date = this.projectForm.value.date;
       console.log('Project:', this.project);
       // Handle submission, e.g., call a service to save the project
-      this.ps.Add(this.project).subscribe((data)=>{
+      this.ps.updateProject(this.project).subscribe((data)=>{
         console.log(data);
         this.router.navigate(['/projects']);
       })
     }
   }
-
 
 
 }

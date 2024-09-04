@@ -17,5 +17,9 @@ export class UserService {
     return this.http.get<User[]>('http://localhost:8080/users/show');
   }
 
+  UpdateUser(u:User){
+    return this.http.put<User>('http://localhost:8080/users/update',u);
+  }
+
 
 }

@@ -13,13 +13,13 @@
                         <div class="page-title-box">
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Project</a></li>
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Tasks</a></li>
-                                    <li class="breadcrumb-item active">Kanban Board</li>
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Projets</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Taches</a></li>
+                                    <li class="breadcrumb-item active">Liste Des Taches</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Kanban Board
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#add-new-task-modal" class="btn btn-success btn-sm ms-3">Add New</a>
+                            <h4 class="page-title">Liste Des Taches
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#add-new-task-modal" class="btn btn-success btn-sm ms-3" *ngIf="isAdminOrChef()">Add New</a>
                             </h4>
                         </div>
                     </div>
@@ -34,49 +34,54 @@
                                 <div id="task-list-one" class="task-list-items">
 
                                     <!-- Task Item -->
-                                    <div class="card mb-0" *ngFor="let t of tasksTODO">
-                                        <div class="card-body p-3">
-                                            <small class="float-end text-muted">18 Jul 2018</small>
-                                            <span
-                                                class="badge"
-                                                [ngClass]="getBadgeClass(t.priority)"
-                                                >
-                                                {{ t.priority }}
-                                                </span>
+                                  <div class="card mb-0" *ngFor="let t of tasksTODO">
+    <div class="card-body p-3">
+        <small class="float-end text-muted">18 Jul 2018</small>
+        <span class="badge" [ngClass]="getBadgeClass(t.priority)">
+            {{ t.priority }}
+        </span>
 
-                                            <h5 class="mt-2 mb-2">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#task-detail-modal" class="text-body">{{ t.libelle }}</a>
-                                            </h5>
+        <h5 class="mt-2 mb-2">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#task-detail-modal" class="text-body">{{ t.libelle }}</a>
+        </h5>
 
-                                            <p class="mb-0">
-                                                <span class="pe-2 text-nowrap mb-2 d-inline-block">
-                                                    {{ t.description }}
-                                                </span>
-                                                
-                                            </p>
+        <p class="mb-0">
+            <span class="pe-2 text-nowrap mb-2 d-inline-block">
+                {{ t.description }}
+            </span>
+        </p>
 
-                                            <div class="dropdown float-end">
-                                                <a href="#" class="dropdown-toggle text-muted arrow-none" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="mdi mdi-dots-vertical font-18"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i class="mdi mdi-pencil me-1"></i>Edit</a>
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i class="mdi mdi-delete me-1"></i>Delete</a>
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i class="mdi mdi-plus-circle-outline me-1"></i>Add People</a>
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i class="mdi mdi-exit-to-app me-1"></i>Leave</a>
-                                                </div>
-                                            </div>
+        
 
-                                            <p class="mb-0">
-                                                <img src="assets/images/users/avatar-2.jpg" alt="user-img" class="avatar-xs rounded-circle me-1" />
-                                                <span class="align-middle">{{ t.employee?.username }}</span>
-                                            </p>
-                                        </div> <!-- end card-body -->
-                                    </div>
+        <div class="dropdown float-end">
+            <a href="#" class="dropdown-toggle text-muted arrow-none" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="mdi mdi-dots-vertical font-18"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end">
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#update-task-modal" (click)="openUpdateModal(t)"  *ngIf="isAdminOrChef()"><i class="mdi mdi-pencil me-1"></i>Edit</a>
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item"><i class="mdi mdi-delete me-1"></i>Delete</a>
+                
+            </div>
+        </div>
+
+        <p class="mb-0">
+            <img src="assets/images/users/avatar-2.jpg" alt="user-img" class="avatar-xs rounded-circle me-1" />
+            <span class="align-middle">{{ t.employee?.username }}</span>
+        </p>
+
+        <!-- Arrow buttons for changing status -->
+        <div class="d-flex justify-content-between align-items-end mt-2">
+            <!-- Right Arrow Button -->
+            <button class="btn btn-outline-primary btn-sm ms-auto" (click)="ChangeStatus(t, 'progress')">
+                <i class="mdi mdi-arrow-right"></i>
+            </button>
+        </div>
+
+    </div> <!-- end card-body -->
+</div>
+
                                     <!-- Task Item End -->
 
                                     
@@ -131,6 +136,19 @@
                                                 <img src="assets/images/users/avatar-5.jpg" alt="user-img" class="avatar-xs rounded-circle me-1" />
                                                 <span class="align-middle">{{ t.employee?.username }}</span>
                                             </p>
+
+                                            <!-- Arrow buttons for changing status -->
+                                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                                <!-- Left Arrow Button -->
+                                                <button class="btn btn-outline-primary btn-sm" (click)="ChangeStatus(t, 'todo')">
+                                                    <i class="mdi mdi-arrow-left"></i>
+                                                </button>
+
+                                                <!-- Right Arrow Button -->
+                                                <button class="btn btn-outline-primary btn-sm" (click)="ChangeStatus(t, 'review')">
+                                                    <i class="mdi mdi-arrow-right"></i>
+                                                </button>
+                                            </div>
                                         </div> <!-- end card-body -->
                                     </div>
                                     <!-- Task Item End -->
@@ -187,6 +205,18 @@
                                                 <img src="assets/images/users/avatar-5.jpg" alt="user-img" class="avatar-xs rounded-circle me-1" />
                                                 <span class="align-middle">{{ t.employee?.username }}</span>
                                             </p>
+                                            <!-- Arrow buttons for changing status -->
+                                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                                <!-- Left Arrow Button -->
+                                                <button class="btn btn-outline-primary btn-sm" (click)="ChangeStatus(t, 'progress')">
+                                                    <i class="mdi mdi-arrow-left"></i>
+                                                </button>
+
+                                                <!-- Right Arrow Button -->
+                                                <button class="btn btn-outline-primary btn-sm" (click)="ChangeStatus(t, 'done')">
+                                                    <i class="mdi mdi-arrow-right"></i>
+                                                </button>
+                                            </div>
                                         </div> <!-- end card-body -->
                                     </div>
                                     <!-- Task Item End -->
@@ -239,6 +269,15 @@
                                                 <img src="assets/images/users/avatar-5.jpg" alt="user-img" class="avatar-xs rounded-circle me-1" />
                                                 <span class="align-middle">{{ t.employee?.username }}</span>
                                             </p>
+                                            <!-- Arrow buttons for changing status -->
+                                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                                <!-- Left Arrow Button -->
+                                                <button class="btn btn-outline-primary btn-sm" (click)="ChangeStatus(t, 'review')">
+                                                    <i class="mdi mdi-arrow-left"></i>
+                                                </button>
+
+                                               
+                                            </div>
                                         </div> <!-- end card-body -->
                                     </div>
                                     <!-- Task Item End -->
@@ -512,6 +551,63 @@
                     </div>
 
                 </div> <!-- .p-2 -->
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!-- Update task modal -->
+<div class="modal fade task-modal-content" id="update-task-modal" tabindex="-1" role="dialog" aria-labelledby="UpdateTaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="UpdateTaskModalLabel">Update Task</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="edittaskForm" (ngSubmit)="onUpdate()" class="p-2">
+                    <div class="mb-3">
+                        <label class="form-label">Priority</label>
+                        <select class="form-select form-control-light" formControlName="priority">
+                            <option *ngFor="let priority of priorities" [value]="priority">{{ priority }}</option>
+                        </select>
+                        <div *ngIf="taskForm.get('priority')?.invalid && taskForm.get('priority')?.touched" class="text-danger">
+                            Priority is required.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="task-libelle" class="form-label">Libelle</label>
+                        <input type="text" class="form-control form-control-light" id="task-libelle" formControlName="libelle" placeholder="Enter libelle">
+                        <div *ngIf="taskForm.get('libelle')?.invalid && taskForm.get('libelle')?.touched" class="text-danger">
+                            Libelle is required.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="task-description" class="form-label">Description</label>
+                        <textarea class="form-control form-control-light" id="task-description" formControlName="description" rows="3"></textarea>
+                        <div *ngIf="taskForm.get('description')?.invalid && taskForm.get('description')?.touched" class="text-danger">
+                            Description is required.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="task-employee" class="form-label">Assign To</label>
+                        <select class="form-select form-control-light" formControlName="employee">
+                            <option *ngFor="let user of users" [ngValue]="user">{{ user.username }}</option>
+                        </select>
+                        <div *ngIf="taskForm.get('employee')?.invalid && taskForm.get('employee')?.touched" class="text-danger">
+                            Assigning to an employee is required.
+                        </div>
+                    </div>
+
+                    <div class="text-end">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="edittaskForm.invalid">Update</button>
+                    </div>
+                </form>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

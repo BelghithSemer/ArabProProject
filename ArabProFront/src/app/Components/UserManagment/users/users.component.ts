@@ -69,4 +69,15 @@ export class UsersComponent {
     }
   }
 
+
+
+  block(stat : string , user : User){
+    if(stat === 'block'){
+      user.blocked = true;
+    }else{
+      user.blocked = false;
+    }
+    this.serv.UpdateUser(user).subscribe((data)=>console.log(data));
+  }
+
 }

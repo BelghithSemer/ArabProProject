@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { LoginResponse } from 'src/app/models/loginResponse';
 import { Project } from 'src/app/models/Project';
 import { Task, TaskStatus } from 'src/app/models/Task';
 import { User } from 'src/app/models/User';
@@ -17,14 +18,15 @@ export class TasksComponent {
   project: Project;
 
   tasks: Task[] = [];
-
+  user !: LoginResponse // current user
   tasksTODO: Task[] = [];
   tasksInProgress: Task[] = [];
   tasksReview: Task[] = [];
   tasksDone: Task[] = [];
-// for adding new task 
-task : Task;
-taskForm!: FormGroup;
+  // for adding new task 
+  task : Task;
+  taskForm!: FormGroup;
+  edittaskForm: FormGroup;
   users: User[] = [];
   priorities: string[] = ['Inférieure', 'Moyenne', 'Élevée'];
   //statuses: TaskStatus[] = [TaskStatus.DONE,TaskStatus.IN_PROGRESS, TaskStatus.REVIEW, TaskStatus.TODO];
@@ -52,7 +54,8 @@ taskForm!: FormGroup;
       etat: 'OnGoing',
       description :'nothing',
       manager : undefined,
-      libelle : ''
+      libelle : '',
+      date : new Date()
     }
     this.taskForm = this.fb.group({
       priority: ['', Validators.required],
@@ -60,6 +63,12 @@ taskForm!: FormGroup;
       description: ['', Validators.required],
       
       employee: [null, Validators.required]
+    });
+    this.edittaskForm = this.fb.group({
+      priority: ['', Validators.required],
+      libelle: ['', Validators.required],
+      description: ['', Validators.required],
+      employee: ['', Validators.required]
     });
     this.task = {
       id:0,
@@ -81,14 +90,17 @@ taskForm!: FormGroup;
       this.getProject();
     });
     this.loadUsers();
-    this.projectService.GetAllTasks().subscribe((data)=>{
-      this.tasks= data;
-      console.log('Tasks : ',this.tasks);
-      this.tasksTODO = this.tasks.filter(task => task.status === TaskStatus.TODO);
-      this.tasksInProgress = this.tasks.filter(task => task.status === TaskStatus.IN_PROGRESS);
-      this.tasksReview = this.tasks.filter(task => task.status === TaskStatus.REVIEW);
-      this.tasksDone = this.tasks.filter(task => task.status === TaskStatus.DONE);
-    });
+    // Getting Current User 
+    this.user = {
+      accessToken: sessionStorage.getItem('accessToken') || '',
+      username: sessionStorage.getItem('username') || '',
+      email: sessionStorage.getItem('email') || '',
+      id: parseInt(sessionStorage.getItem('id') || '') || 0,
+      roles: JSON.parse(sessionStorage.getItem('roles') || '[]'),
+      tokenType: sessionStorage.getItem('tokenType') || '',
+    };
+  
+    
   }
 
   getProject(): void {
@@ -97,6 +109,15 @@ taskForm!: FormGroup;
       (data) => {
         this.project = data;
         console.log('Project details:', data);
+        //getting tasks list : 
+        this.projectService.GetAllTasks().subscribe((data)=>{
+          this.tasks = data.filter(task => task.project?.id === this.project.id);
+          console.log('Tasks : ',this.tasks);
+          this.tasksTODO = this.tasks.filter(task => task.status === TaskStatus.TODO);
+          this.tasksInProgress = this.tasks.filter(task => task.status === TaskStatus.IN_PROGRESS);
+          this.tasksReview = this.tasks.filter(task => task.status === TaskStatus.REVIEW);
+          this.tasksDone = this.tasks.filter(task => task.status === TaskStatus.DONE);
+        });
       }
     );
   }
@@ -122,5 +143,61 @@ taskForm!: FormGroup;
     })
 
 
+  }
+  ChangeStatus(t: Task, status: string){
+    if(status === 'progress'){
+      t.status = TaskStatus.IN_PROGRESS;
+      
+    }else if(status === 'done'){
+      t.status = TaskStatus.DONE
+    }else if(status === 'review'){
+      t.status = TaskStatus.REVIEW
+    }else{
+      t.status = TaskStatus.TODO
+    }
+
+
+    this.projectService.updateTask(t).subscribe((data)=>{
+      console.log(data);
+      this.getProject();
+    });
+  }
+
+
+  // Call this method when opening the update modal
+  openUpdateModal(task : Task) {
+    this.task = task;
+    this.edittaskForm.patchValue({
+      priority: task.priority,
+      libelle: task.libelle,
+      description: task.description,
+      employee: task.employee
+    });
+  }
+
+
+  onUpdate() {
+    if (this.edittaskForm.valid) {
+      this.task.description =  this.edittaskForm.value.description;
+      this.task.libelle = this.edittaskForm.value.libelle;
+      this.task.employee = this.edittaskForm.value.employee;
+      this.task.priority = this.edittaskForm.value.priority;
+      this.task.project = this.project;
+
+      this.projectService.updateTask(this.task).subscribe((data)=>{
+        console.log(data);
+      })
+    }
+  }
+
+
+  // Check if the user has 'ROLE_ADMIN' or 'ROLE_CHEF'
+  isAdminOrChef(): boolean {
+    return this.user.roles.includes('ROLE_ADMIN') || this.user.roles.includes('ROLE_CHEF');
+  }
+
+  // Check if the user has 'ROLE_EMPLOYEE'
+  isEmployee(): boolean {
+    return this.user.roles.includes('ROLE_EMPLOYEE');
   }
 }

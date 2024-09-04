@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SignInRequest } from 'src/app/models/SignInRequest';
 import { AuthService } from 'src/app/Services/auth.service';
+import { UserService } from 'src/app/Services/user.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -11,7 +13,7 @@ import { AuthService } from 'src/app/Services/auth.service';
 export class SignInComponent {
   loginForm: FormGroup;
   req : SignInRequest;
-  constructor(private fb: FormBuilder,private serv:AuthService) {
+  constructor(private fb: FormBuilder,private serv:AuthService,private us:UserService,private router:Router) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
@@ -42,7 +44,16 @@ export class SignInComponent {
         sessionStorage.setItem('email', data.email);
         sessionStorage.setItem('roles', JSON.stringify(data.roles));
         sessionStorage.setItem('id', data.id.toString());
-      })
+
+        this.us.GetUser(data.id).subscribe((data)=>{
+          console.log('Blocked : ',data.blocked)
+          if(data.blocked == true){
+            alert('Votre Compte est Blocké , contacter l administration !');
+          }else{
+            this.router.navigate(['/dashboard']);
+          }
+        })
+      });
 
     }
   }
