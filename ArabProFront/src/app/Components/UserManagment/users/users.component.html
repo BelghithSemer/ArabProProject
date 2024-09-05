@@ -31,7 +31,7 @@
                             <div class="card-body">
                                 <div class="row mb-2">
                                     <div class="col-sm-5">
-                                        <a href="javascript:void(0);" class="btn btn-danger mb-2" (click)="openModal()">
+                                        <a href="javascript:void(0);" class="btn btn-danger mb-2" (click)="openModal()"  *ngIf=" isAdmin()">
                                             <i class="mdi mdi-plus-circle me-2"></i> Ajouter Utilisateur
                                           </a>
                                     </div>
@@ -54,7 +54,7 @@
                                                 <th>Role</th>
                                                 <th>Date de Creation</th>
                                                 <th>Status</th>
-                                                <th style="width: 75px;">Action</th>
+                                                <th style="width: 75px;" *ngIf="isAdmin()">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -90,15 +90,16 @@
                                                     07/07/2018
                                                 </td>
                                                 <td>
-                                                    <span *ngIf="u.blocked; else activeBadge" class="badge badge-danger-lighten">Blocked</span>
-                                                    <ng-template #activeBadge>
-                                                    <span class="badge badge-success-lighten">Active</span>
-                                                    </ng-template>
+                                                  <span *ngIf="u.blocked; else activeBadge" class="badge bg-danger">Blocked</span>
+                                                  <ng-template #activeBadge>
+                                                    <span class="badge bg-success">Active</span>
+                                                  </ng-template>
+                                                  
                                                     
                                                       
                                                 </td>
 
-                                                <td>
+                                                <td *ngIf="isAdmin()">
                                                     <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
                                                     <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
                                                     

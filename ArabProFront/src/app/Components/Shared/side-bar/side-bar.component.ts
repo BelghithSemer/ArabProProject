@@ -40,10 +40,12 @@ export class SideBarComponent {
 }
 
 
- isAdminOrChef(): boolean {
-  return this.user.roles.includes('ROLE_ADMIN') || this.user.roles.includes('ROLE_CHEF');
+isAdmin(): boolean {
+  return this.user.roles.includes('ROLE_ADMIN') ;
 }
-
+isChef(): boolean {
+  return  this.user.roles.includes('ROLE_CHEF');
+}
 // Check if the user has 'ROLE_EMPLOYEE'
 isEmployee(): boolean {
   return this.user.roles.includes('ROLE_EMPLOYEE');

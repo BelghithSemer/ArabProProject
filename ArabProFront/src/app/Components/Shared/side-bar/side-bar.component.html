@@ -298,8 +298,8 @@
                         </div>
 
                         <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item">
-                            <i class="mdi mdi-account-circle me-1" [routerLink]="['/profile']"></i>
+                        <a href="javascript:void(0);" class="dropdown-item"  [routerLink]="['/profile']">
+                            <i class="mdi mdi-account-circle me-1"></i>
                             <span>Mon Profile</span>
                         </a>
 
@@ -385,7 +385,7 @@
 
                 
                     <!-- Show this item if the user is an admin or chef -->
-                    <li class="side-nav-item" *ngIf="isAdminOrChef()">
+                    <li class="side-nav-item" *ngIf="isAdmin() || isChef()">
                       <a data-bs-toggle="collapse" [routerLink]="['/requests']" aria-expanded="false" aria-controls="sidebarEmail" class="side-nav-link">
                         <i class="uil-envelope"></i>
                         <span> Demandes </span>
@@ -411,11 +411,17 @@
                     
                 </li>
 
-                <li class="side-nav-item" *ngIf="isAdminOrChef()">
+                <li class="side-nav-item" *ngIf="isAdmin()">
                     <a href="apps-social-feed.html" [routerLink]="['/users']" class="side-nav-link">
                         <i class="uil-user"></i>
+                        <span> Gestion Utilisateurs</span>
+                    </a>
+                </li>
 
-                        <span> Utilisateur</span>
+                <li class="side-nav-item" *ngIf="isChef()">
+                    <a href="apps-social-feed.html" [routerLink]="['/users']" class="side-nav-link">
+                        <i class="uil-user"></i>
+                        <span> Gestion Employee</span>
                     </a>
                 </li>
 

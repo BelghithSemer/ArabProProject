@@ -54,21 +54,26 @@
                             <div class="card-body">
                                 <div class="dropdown card-widgets">
                                     <a href="#" class="dropdown-toggle arrow-none" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ri-more-fill"></i>
+                                      <i class="ri-more-fill"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
-                                        <!-- item-->
-                                        <a [routerLink]="['/update-project', p.id]" class="dropdown-item"  *ngIf="isAdmin()">
-                                            <i class="mdi mdi-pencil me-1"></i> Modifier
-                                          </a>
-                                          
-                                        <!-- item-->
-                                        <a href="javascript:void(0);" class="dropdown-item"><i class="mdi mdi-delete me-1"></i>Supprimer</a>
-                                        <!-- item-->
-                                        <a [routerLink]="['/tasks', p.id]" href="javascript:void(0);" class="dropdown-item"><i class="mdi mdi-email-outline me-1"></i>Tâches</a>
-                                        
+                                      <!-- item-->
+                                      <a [routerLink]="['/update-project', p.id]" class="dropdown-item" *ngIf="isAdmin()">
+                                        <i class="mdi mdi-pencil me-1"></i> Modifier
+                                      </a>
+                                      
+                                      <!-- item-->
+                                      <a href="javascript:void(0);" class="dropdown-item">
+                                        <i class="mdi mdi-delete me-1"></i> Supprimer
+                                      </a>
+                                      
+                                      <!-- item-->
+                                      <a [routerLink]="['/tasks', p.id]" class="dropdown-item">
+                                        <i class="mdi mdi-email-outline me-1"></i> Tâches
+                                      </a>
                                     </div>
-                                </div>
+                                  </div>
+                                  
                                 <!-- project title-->
                                 <h4 class="mt-0">
                                     <a href="apps-projects-details.html" class="text-title">{{ p.libelle }}</a>

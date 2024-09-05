@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoginResponse } from 'src/app/models/loginResponse';
 import { SignUpRequest } from 'src/app/models/signUpRequest';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/Services/auth.service';
@@ -16,6 +17,7 @@ export class UsersComponent {
   authForm: FormGroup;
   roles: string[] = ['ROLE_CHEF', 'ROLE_EMPLOYEE'];
   signuprequest !: SignUpRequest;
+  user : LoginResponse;
   constructor(private serv:UserService,private fb: FormBuilder, private authServ: AuthService){
     this.authForm = this.fb.group({
       username: ['', Validators.required],
@@ -29,6 +31,14 @@ export class UsersComponent {
       password:"",
       username:"",
       role :[]
+    }
+    this.user = {
+      accessToken: sessionStorage.getItem('accessToken') || '',
+      username: sessionStorage.getItem('username') || '',
+      email: sessionStorage.getItem('email') || '',
+      id: parseInt(sessionStorage.getItem('id')|| '') || 0,
+      roles: JSON.parse(sessionStorage.getItem('roles') || '[]'),
+      tokenType: sessionStorage.getItem('tokenType') || '',
     }
   }
   ngOnInit(){
@@ -78,6 +88,19 @@ export class UsersComponent {
       user.blocked = false;
     }
     this.serv.UpdateUser(user).subscribe((data)=>console.log(data));
+  }
+
+
+
+  isAdmin(): boolean {
+    return this.user.roles.includes('ROLE_ADMIN') ;
+  }
+  isChef(): boolean {
+    return  this.user.roles.includes('ROLE_CHEF');
+  }
+  // Check if the user has 'ROLE_EMPLOYEE'
+  isEmployee(): boolean {
+    return this.user.roles.includes('ROLE_EMPLOYEE');
   }
 
 }
