@@ -15,7 +15,7 @@ export class UsersComponent {
 
   users : User[] =  [];
   authForm: FormGroup;
-  roles: string[] = ['ROLE_CHEF', 'ROLE_EMPLOYEE'];
+  roles: string[] = ['chef', 'employe'];
   signuprequest !: SignUpRequest;
   user : LoginResponse;
   constructor(private serv:UserService,private fb: FormBuilder, private authServ: AuthService){
@@ -62,11 +62,12 @@ export class UsersComponent {
   onSubmit() {
     if (this.authForm.valid) {
       // Handle form submission logic here
-      console.log(this.authForm.value);
+      //console.log(this.authForm.value);
       this.signuprequest.email = this.authForm.value.email;
       this.signuprequest.username = this.authForm.value.username;
       this.signuprequest.password = this.authForm.value.password;
       this.signuprequest.role.push( this.authForm.value.role);
+      console.log(this.signuprequest);
       this.authServ.register(this.signuprequest).subscribe((data)=>{
         console.log(data)
       })
