@@ -13,11 +13,11 @@
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">ArabPro</a></li>
-                                    <li class="breadcrumb-item active"><a href="javascript: void(0);">Demandes List</a></li>
+                                    <li class="breadcrumb-item active"><a href="javascript: void(0);">Liste Des Nouvelles Taches</a></li>
                             
                                 </ol>
                             </div>
-                            <h4 class="page-title">List Demandes</h4>
+                            <h4 class="page-title">List Des Taches</h4>
                         </div>
                     </div>
                 </div>
@@ -63,16 +63,18 @@
                                                         <label class="form-check-label" for="customCheck1">&nbsp;</label>
                                                     </div>
                                                 </th>
-                                                <th>Employee</th>
-                                                <th>Type</th>
+                                                <th>Projet</th>
+                                                
+                                                <th>Libellé</th>
                                                 <th>Description</th>
-                                                <th>Date</th>
-                                                <th>Status</th>
+                                                <th>Priorité</th>
+                                                <th>
+                                                    Assigné à</th>
                                                 <th style="width: 125px;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let d of listdemande">
+                                            <tr *ngFor="let d of tasks">
                                                 <td>
                                                     <div class="form-check">
                                                         <input type="checkbox" class="form-check-input" id="customCheck2">
@@ -84,53 +86,50 @@
                                                         <div class="d-flex align-items-center">
                                                             
                                                             <div class="flex-grow-1 ms-2">
-                                                                <h5 class="my-0">{{ getUserName(d.id) }}</h5>
+                                                                <h5 class="my-0">{{ d.project?.libelle }}</h5>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td>{{ d.typeDemande }}</td>
+                                                <td>{{ d.libelle }}</td>
                                                 <td>
                                                     
                                                     <p class="mb-0 txt-muted">{{ d.description }}</p>
                                                 </td>
-                                                <td>{{ d.dateCreation | date:'yyyy-MM-dd' }}</td>
+                                                
                                                 <td>
                                                     <h5 class="my-0">
                                                         <span 
                                                             class="badge" 
                                                             [ngClass]="{
-                                                                'badge-success': d.state === 'VALIDEE',
-                                                                'badge-danger': d.state === 'REFUSEE',
-                                                                'badge-info-lighten': d.state !== 'VALIDEE' && d.state !== 'REFUSEE'
+                                                                'badge-success': d.priority === 'Inférieure',
+                                                                'badge-danger': d.priority === 'Élevée',
+                                                                'badge-info-lighten': d.priority !== 'Élevée' && d.priority !== 'Inférieure'
                                                             }">
-                                                            {{ d.state }}
+                                                            {{ d.priority }}
                                                         </span>
                                                     </h5>
                                                 </td>
-                                           
                                                 <td>
-                                                    <ng-container *ngIf="d.state === 'SOUMISE' || d.state === 'PARTIELLEMENT_VALIDEE'; else deleteButton">
+                                                    <p class="mb-0 txt-muted">
+                                                        <span *ngIf="d.employee?.nom; else showUsername">
+                                                          {{ d.employee?.nom }} {{ d.employee?.prenom }}
+                                                        </span>
+                                                        <ng-template #showUsername>
+                                                          {{ d.employee?.username }}
+                                                        </ng-template>
+                                                      </p>
+                                                </td>
+                                                <td>
+                                                    <ng-container>
                                                         <a href="javascript:void(0);" class="action-icon" style="color: green;" (click)="Repondre(d, 'accept')"> 
                                                             <i class="mdi mdi-check-circle-outline"></i> 
                                                         </a>
                                                         <a href="javascript:void(0);" class="action-icon" style="color: red;" (click)="Repondre(d, 'refuse')"> 
                                                             <i class="mdi mdi-close-circle-outline"></i> 
                                                         </a>
-                                                        <a href="javascript:void(0);" class="action-icon" (click)="openDialog(d)">
-                                                            <i class="mdi mdi-information"></i>
-                                                          </a>
                                                     </ng-container>
-                                                    <ng-template #deleteButton>
-                                                        <a href="javascript:void(0);" class="action-icon" (click)="Delete(d.id)">
-                                                            <i class="mdi mdi-delete"></i>
-                                                        </a>
-                                                        <a href="javascript:void(0);" class="action-icon" (click)="openDialog(d)">
-                                                            <i class="mdi mdi-information"></i>
-                                                          </a>
-                                                        
-                                                        
-                                                    </ng-template>
+                                                    
                                                 </td>
                                                 
 
@@ -152,55 +151,7 @@
 
 
         <!--modal structure start -->
-        <!-- Modal Structure -->
-        <div class="modal fade" id="demandInfoModal" tabindex="-1" aria-labelledby="demandInfoModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
-                  <h5 class="modal-title" id="demandInfoModalLabel">Demand Information</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <!-- User Info -->
-                  <div class="d-flex align-items-center mb-3">
-                    <img src="assets/images/users/avatar-1.jpg" class="rounded-circle avatar-sm" alt="User Image">
-                    <h5 class="ms-2">{{ getUserName(selectedDemand?.idDemandeur) }}</h5>
-                  </div>
-          
-                  <!-- Common Fields -->
-                  <p><strong>Type:</strong> {{ selectedDemand?.typeDemande }}</p>
-                  <p><strong>Description:</strong> {{ selectedDemand?.description }}</p>
-                  <p><strong>Date:</strong> {{ selectedDemand?.dateCreation | date:'yyyy-MM-dd' }}</p>
-          
-                  <!-- Conditional Fields -->
-                  <ng-container [ngSwitch]="selectedDemand?.typeDemande">
-                    <!-- Auto Sortie -->
-                    <div *ngSwitchCase="'Demande Auto-Sortie'">
-                      <p><strong>Date Debut:</strong> {{ selectedDemand?.dateDebut | date:'yyyy-MM-dd HH:mm' }}</p>
-                      <p><strong>Duree:</strong> {{ selectedDemand?.duree }} minutes</p>
-                    </div>
-          
-                    <!-- Conge -->
-                    <div *ngSwitchCase="'Demande Conge'">
-                      <p><strong>Date Debut:</strong> {{ selectedDemand?.dateDebut | date:'yyyy-MM-dd' }}</p>
-                      <p><strong>Date Sortie:</strong> {{ selectedDemand?.dateSortie | date:'yyyy-MM-dd' }}</p>
-                    </div>
-          
-                    <!-- Pret Avance -->
-                    <div *ngSwitchCase="'Demande pret-avance'">
-                      <p><strong>Montant Demande:</strong> {{ selectedDemand?.montantdemande | currency }}</p>
-                    </div>
-                  </ng-container>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-  
-         <!--end modal -->
+        
 
 
 

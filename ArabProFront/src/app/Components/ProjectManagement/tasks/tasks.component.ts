@@ -77,7 +77,8 @@ export class TasksComponent {
       employee: undefined,
       project:undefined,
       priority:'',
-      description:''
+      description:'',
+      date: new Date()
 
     }
   }
@@ -137,7 +138,8 @@ export class TasksComponent {
     this.task.employee = this.taskForm.value.employee;
     this.task.priority = this.taskForm.value.priority;
     this.task.project = this.project;
-    console.log(this.task);
+    this.task.status = TaskStatus.NEW;
+    //console.log(this.task);
     this.projectService.AddTask(this.task).subscribe((data)=>{
       console.log(data);
     })
@@ -193,7 +195,7 @@ export class TasksComponent {
 
   // Check if the user has 'ROLE_ADMIN' or 'ROLE_CHEF'
   isAdminOrChef(): boolean {
-    return this.user.roles.includes('ROLE_ADMIN') || this.user.roles.includes('ROLE_CHEF');
+    return this.user.roles.includes('ROLE_ADMIN') || this.user.username === this.project.manager?.username;
   }
 
   // Check if the user has 'ROLE_EMPLOYEE'

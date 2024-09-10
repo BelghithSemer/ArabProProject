@@ -11,6 +11,7 @@ import { TasksComponent } from './Components/ProjectManagement/tasks/tasks.compo
 import { UpdateProjectComponent } from './Components/ProjectManagement/update-project/update-project.component';
 import { ProfileComponent } from './Components/Auth/profile/profile.component';
 import { DashboardComponent } from './Components/Auth/dashboard/dashboard.component';
+import { TasksVerificationComponent } from './Components/ProjectManagement/tasks-verification/tasks-verification.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path: 'update-project/:id', component: UpdateProjectComponent},
   {path: 'profile', component: ProfileComponent},
   {path: 'dashboard', component: DashboardComponent},
+  {path: 'tasks-verif', component: TasksVerificationComponent},
 ];
 
 @NgModule({

@@ -35,4 +35,8 @@ export class ProjectService {
   updateProject(project: Project){
     return this.http.put<Project>('http://localhost:8080/project/update',project);
   }
+
+  deleteTask(id : number){
+    return this.http.delete('http://localhost:8080/tasks/delete/'+id);
+  }
 }

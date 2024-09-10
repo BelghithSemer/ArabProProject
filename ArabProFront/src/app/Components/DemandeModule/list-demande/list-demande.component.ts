@@ -32,6 +32,8 @@ ngOnInit(){
 
 }
 
+
+
 Repondre(dem: Demande, res: string) {
   const roles = sessionStorage.getItem('roles');
   
@@ -81,13 +83,8 @@ Delete(id:number){
 }
 
 
-getUserImage(userId: number): string {
-  // Implement logic to get the user image based on idDemandeur
-  // For example, you might query an API or use a local array of user data
-  return 'path/to/default-image.jpg'; // Update this with actual logic
-}
 
-// Sample method to get the user's name by id
+
 getUserName(userId: number): string {
  
  if(this.user != null ){

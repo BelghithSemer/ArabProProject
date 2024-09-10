@@ -46,6 +46,8 @@ export class AddDemandeComponent {
       content:"",
       type:"",
       request: this.demande,
+      task:undefined,
+      date: new Date()
     }
   }
 

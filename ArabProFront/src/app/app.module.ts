@@ -23,6 +23,7 @@ import { UpdateProjectComponent } from './Components/ProjectManagement/update-pr
 import { ProfileComponent } from './Components/Auth/profile/profile.component';
 import { DashboardComponent } from './Components/Auth/dashboard/dashboard.component';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+import { TasksVerificationComponent } from './Components/ProjectManagement/tasks-verification/tasks-verification.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +39,8 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
     TasksComponent,
     UpdateProjectComponent,
     ProfileComponent,
-    DashboardComponent
+    DashboardComponent,
+    TasksVerificationComponent
   ],
   imports: [
     BrowserModule,

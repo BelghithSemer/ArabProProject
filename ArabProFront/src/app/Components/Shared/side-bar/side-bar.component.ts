@@ -25,10 +25,22 @@ export class SideBarComponent {
  }
 
  ngOnInit(){
-  this.serv.ShowAllNotifs().subscribe((data)=>{
+  this.serv.ShowAllNotifs().subscribe((data) => {
     console.log(data);
-    this.notifs=data;
-  })
+    this.notifs = data;
+  
+    if (this.isAdmin() || this.isChef()) {
+      // Show all notifications of type 'Request'
+      this.notifs = this.notifs.filter(notif => notif.type === 'Request');
+    } else if (this.isEmployee()) {
+      // Show 'Request' type notifications and specific 'Task' notifications
+      this.notifs = this.notifs.filter(notif => 
+        
+        (notif.type === 'Task' && notif.task?.employee?.username === this.user.username)
+      );
+    }
+  });
+  
  }
 
  LogOut() {
@@ -51,5 +63,13 @@ isEmployee(): boolean {
   return this.user.roles.includes('ROLE_EMPLOYEE');
 }
 
+
+Navigate(n: Notif){
+  if(n.type === 'Task'){
+    this.router.navigate(['/tasks',n.task?.project?.id])
+  }else{
+    this.router.navigate(['/requests']);
+  }
+}
 
 }

@@ -7,12 +7,12 @@ export class Task{
     libelle!:string;
     description!:string;
     status!:TaskStatus;
-
+    date!:Date;
 
     employee: User | undefined;
 
     project: Project | undefined;
 }
 export enum TaskStatus{
-    TODO ='TODO', IN_PROGRESS = 'IN_PROGRESS', REVIEW = 'REVIEW' ,DONE = 'DONE'
+    NEW='NEW',TODO ='TODO', IN_PROGRESS = 'IN_PROGRESS', REVIEW = 'REVIEW' ,DONE = 'DONE'
 }
