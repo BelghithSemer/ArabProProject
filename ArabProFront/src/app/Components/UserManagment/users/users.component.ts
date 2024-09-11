@@ -42,10 +42,20 @@ export class UsersComponent {
     }
   }
   ngOnInit(){
-    this.serv.GetUsers().subscribe((data)=>{
-      this.users = data;
-      console.log('users : ',this.users)
-    })
+    
+      this.serv.GetUsers().subscribe((data)=>{
+        this.users = data;
+        console.log('users : ',this.users)
+        if (this.user.roles.includes('ROLE_CHEF')){
+          this.users = this.users.filter(user => 
+            user.roles.some(role => role.name === 'ROLE_EMPLOYEE')
+          );
+          console.log('Filtered users (ROLE_EMPLOYEE): ', this.users);
+        }
+      })
+    
+    
+    
   }
 
 

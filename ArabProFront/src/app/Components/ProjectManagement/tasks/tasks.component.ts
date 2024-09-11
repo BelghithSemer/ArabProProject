@@ -202,4 +202,8 @@ export class TasksComponent {
   isEmployee(): boolean {
     return this.user.roles.includes('ROLE_EMPLOYEE');
   }
+
+  isChef(): boolean {
+    return  this.user.username === this.project.manager?.username;
+  }
 }
