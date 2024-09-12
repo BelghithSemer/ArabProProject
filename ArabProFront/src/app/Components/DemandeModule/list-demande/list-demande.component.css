@@ -28,3 +28,7 @@
     text-align: center; /* Center text */
     display: inline-block; /* Inline block display */
 }
+.description-text {
+    white-space: normal;
+    word-wrap: break-word;
+  }

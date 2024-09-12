@@ -124,13 +124,13 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="addCustomerModalLabel">Add Customer</h5>
+                  <h5 class="modal-title" id="addCustomerModalLabel">Ajouter Utilisateur</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                   <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
                     <div class="mb-3">
-                      <label for="username" class="form-label">Username</label>
+                      <label for="username" class="form-label">Nom D'utilisateur</label>
                       <input type="text" id="username" class="form-control" formControlName="username" />
                       <div *ngIf="authForm.controls['username'].invalid && authForm.controls['username'].touched" class="text-danger">
                         Username is required.
@@ -146,7 +146,7 @@
                     </div>
           
                     <div class="mb-3">
-                      <label for="password" class="form-label">Password</label>
+                      <label for="password" class="form-label">Mot de Passe</label>
                       <input type="password" id="password" class="form-control" formControlName="password" />
                       <div *ngIf="authForm.controls['password'].invalid && authForm.controls['password'].touched" class="text-danger">
                         Password is required (min length 6).
@@ -164,6 +164,17 @@
                       </div>
                     </div>
           
+                    <!-- Conditionally display the 'Appartient à l'équipe de' field -->
+          <div class="mb-3" *ngIf="authForm.get('role')?.value === 'employe'">
+            <label for="team" class="form-label">Appartient à l'équipe de</label>
+            <select id="team" class="form-select" formControlName="team">
+              <option value="" >Selecter Le Chef</option>
+              <option *ngFor="let user of chefs" [ngValue]="user">{{ user.username }}</option>
+            </select>
+            <div *ngIf="authForm.controls['team'].invalid && authForm.controls['team'].touched" class="text-danger">
+              Team is required for employees.
+            </div>
+          </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       <button type="submit" class="btn btn-primary" [disabled]="authForm.invalid">Save changes</button>

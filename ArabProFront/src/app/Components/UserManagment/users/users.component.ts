@@ -18,12 +18,14 @@ export class UsersComponent {
   roles: string[] = ['chef', 'employe'];
   signuprequest !: SignUpRequest;
   user : LoginResponse;
+  chefs: User[] = [];
   constructor(private serv:UserService,private fb: FormBuilder, private authServ: AuthService){
     this.authForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      role: ['', Validators.required]
+      role: ['', Validators.required],
+      team: ['']
     });
 
     this.signuprequest = {
@@ -48,12 +50,27 @@ export class UsersComponent {
         console.log('users : ',this.users)
         if (this.user.roles.includes('ROLE_CHEF')){
           this.users = this.users.filter(user => 
-            user.roles.some(role => role.name === 'ROLE_EMPLOYEE')
+            //user.roles.some(role => role.name === 'ROLE_EMPLOYEE')
+            user.idDep === this.user.id
+            
           );
           console.log('Filtered users (ROLE_EMPLOYEE): ', this.users);
+          
         }
+        this.chefs = this.users.filter(user => 
+          user.roles.some(role => role.name === 'ROLE_CHEF'));
+          console.log('Filtered users (ROLE_CHEF): ', this.chefs);
       })
     
+
+      this.authForm.get('role')?.valueChanges.subscribe(role => {
+        if (role === 'Employee') {
+          this.authForm.get('team')?.setValidators(Validators.required);
+        } else {
+          this.authForm.get('team')?.clearValidators();
+        }
+        this.authForm.get('team')?.updateValueAndValidity();
+      });
     
     
   }
@@ -78,8 +95,16 @@ export class UsersComponent {
       this.signuprequest.password = this.authForm.value.password;
       this.signuprequest.role.push( this.authForm.value.role);
       console.log(this.signuprequest);
+      console.log('Team Lead',this.authForm.value.team);
       this.authServ.register(this.signuprequest).subscribe((data)=>{
-        console.log(data)
+        console.log(data);
+        if(this.authForm.value.team != null){
+        data.idDep = this.authForm.value.team.id;
+        this.serv.UpdateUser(data).subscribe((res)=>{
+          console.log("Added Chef",res);
+        })
+        }
+        
       })
       // After submission, you can close the modal like this:
       const modalElement = document.getElementById('addCustomerModal');
